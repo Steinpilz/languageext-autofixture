@@ -1,0 +1,53 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26403.7
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "00_Solution Items", "00_Solution Items", "{7678AFD5-3FFF-48DA-B13F-291835091B18}"
+	ProjectSection(SolutionItems) = preProject
+		.env = .env
+		.gitlab-ci.yml = .gitlab-ci.yml
+		build.bat = build.bat
+		scripts\build.fsx = scripts\build.fsx
+		paket.dependencies = paket.dependencies
+		README.md = README.md
+		src\common.props = src\common.props
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "10_Test", "10_Test", "{31983005-67A8-4F41-B52B-EE6AC8847C76}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LanguageExt.AutoFixture", "src\app\LanguageExt.AutoFixture\LanguageExt.AutoFixture.csproj", "{0DEDFEAF-7F52-4DDF-8906-00BD9826EB1A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LanguageExt.AutoFixture.Tests", "src\test\LanguageExt.AutoFixture.Tests\LanguageExt.AutoFixture.Tests.csproj", "{08A44B9E-E6C1-4C26-AC6D-A676F2C9EBCB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LanguageExt.AutoFixture.ConsoleHost", "src\host\LanguageExt.AutoFixture.ConsoleHost\LanguageExt.AutoFixture.ConsoleHost.csproj", "{E4F37263-33BB-432D-A4D9-A3DC5C8B52E9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "05_Host", "05_Host", "{85CA9FE1-3B93-4AE8-AE2D-B1932F4E9DB1}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0DEDFEAF-7F52-4DDF-8906-00BD9826EB1A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0DEDFEAF-7F52-4DDF-8906-00BD9826EB1A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0DEDFEAF-7F52-4DDF-8906-00BD9826EB1A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0DEDFEAF-7F52-4DDF-8906-00BD9826EB1A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{08A44B9E-E6C1-4C26-AC6D-A676F2C9EBCB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{08A44B9E-E6C1-4C26-AC6D-A676F2C9EBCB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{08A44B9E-E6C1-4C26-AC6D-A676F2C9EBCB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{08A44B9E-E6C1-4C26-AC6D-A676F2C9EBCB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E4F37263-33BB-432D-A4D9-A3DC5C8B52E9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E4F37263-33BB-432D-A4D9-A3DC5C8B52E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E4F37263-33BB-432D-A4D9-A3DC5C8B52E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E4F37263-33BB-432D-A4D9-A3DC5C8B52E9}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{08A44B9E-E6C1-4C26-AC6D-A676F2C9EBCB} = {31983005-67A8-4F41-B52B-EE6AC8847C76}
+		{E4F37263-33BB-432D-A4D9-A3DC5C8B52E9} = {85CA9FE1-3B93-4AE8-AE2D-B1932F4E9DB1}
+	EndGlobalSection
+EndGlobal

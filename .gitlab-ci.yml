@@ -1,0 +1,22 @@
+stages:
+  - test
+  - pack
+
+variables:
+
+before_script:
+  - .paket\paket restore
+
+test:
+  stage: test
+  tags:
+    - msbuild15
+  script: 
+    - call build Target=Test
+
+pack:
+  stage: pack
+  tags:
+    - msbuild15
+  script: 
+    - call build Target=Pack

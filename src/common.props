@@ -1,0 +1,11 @@
+<Project>
+  <PropertyGroup>
+    <PackageProjectUrl>https://www.nuget.org/packages/LanguageExt.AutoFixture</PackageProjectUrl>
+    <RepositoryUrl>https://www.nuget.org/packages/LanguageExt.AutoFixture</RepositoryUrl>
+    <Company>Steinpilz</Company>
+    <Authors>Steinpilz, Ivan Bianko</Authors>
+  </PropertyGroup>
+  <PropertyGroup>
+  	<AssemblyVersion>$(major_version).0.0.0</AssemblyVersion>
+  </PropertyGroup>
+</Project>
