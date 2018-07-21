@@ -1,5 +1,6 @@
 ﻿using Ploeh.AutoFixture;
 using Shouldly;
+using System;
 using Xunit;
 
 namespace LanguageExt.AutoFixture.Tests
@@ -50,6 +51,15 @@ namespace LanguageExt.AutoFixture.Tests
         }
 
         [Fact]
+        public void it_creates_HashSetT_instance_when_keys_could_be_generated_not_unique()
+        {
+            var fixture = Fixture;
+            fixture.Register<NotUniqueValue>(() => new NotUniqueValue(fixture.Create<int>() % 2));
+
+            fixture.Create<LanguageExt.HashSet<NotUniqueValue>>().ShouldNotBeEmpty();
+        }
+
+        [Fact]
         public void it_creates_SetT_instance()
         {
             Fixture.Create<LanguageExt.Set<int>>().ShouldNotBeEmpty();
@@ -81,6 +91,15 @@ namespace LanguageExt.AutoFixture.Tests
         }
 
         [Fact]
+        public void it_creates_HashMapT_instance_when_keys_could_be_generated_not_unique()
+        {
+            var fixture = Fixture;
+            fixture.Register<NotUniqueValue>(() => new NotUniqueValue(fixture.Create<int>() % 2));
+
+            fixture.Create<LanguageExt.HashMap<NotUniqueValue, int>>().ShouldNotBeEmpty();
+        }
+
+        [Fact]
         public void it_creates_QueT_instance()
         {
             Fixture.Create<LanguageExt.Que<int>>().ShouldNotBeEmpty();
@@ -90,6 +109,13 @@ namespace LanguageExt.AutoFixture.Tests
         public void it_creates_StckT_instance()
         {
             Fixture.Create<LanguageExt.Stck<int>>().ShouldNotBeEmpty();
+        }
+    }
+
+    class NotUniqueValue : NewType<NotUniqueValue, int>
+    {
+        public NotUniqueValue(int value) : base(value)
+        {
         }
     }
 }

@@ -33,12 +33,52 @@ namespace LanguageExt.AutoFixture
             return (Either<L, R>)instance;
         }
 
+        static LanguageExt.HashMap<L, R> ToHashMap<L, R>(IDictionary<L, R> dictionary)
+        {
+            return toHashMap(dictionary);
+        }
+
         public object Create(object request, ISpecimenContext context)
         {
             var typedRequest = request as Type;
             if (typedRequest == null)
                 return new NoSpecimen();
 
+            return (
+                TryCreateEither(typedRequest, context)
+                || TryCreateHashSet(typedRequest, context)
+                || TryCreateHashMap(typedRequest, context)
+                )
+                .IfNone(new NoSpecimen());
+        }
+
+        private Option<object> TryCreateEither(Type typedRequest, ISpecimenContext context)
+        {
+            // create either with Right state
+            if (typedRequest.IsGenericType
+                && typedRequest.GetGenericTypeDefinition() == typeof(Either<,>))
+            {
+                var leftArgType = typedRequest.GetGenericArguments()[0];
+                var rightArgType = typedRequest.GetGenericArguments()[1];
+
+                var instance = context.Resolve(rightArgType);
+
+                // cast to either
+                Expression<Func<LanguageExt.Either<int, int>>> expr = () => ToEither<int, int>(1);
+
+                var methodCall = (MethodCallExpression)expr.Body;
+
+                var method = methodCall.Method.GetGenericMethodDefinition();
+
+                var genericMethod = method.MakeGenericMethod(leftArgType, rightArgType);
+                return Some(genericMethod.Invoke(null, new object[] { instance }));
+            }
+
+            return None;
+        }
+
+        private Option<object> TryCreateHashSet(Type typedRequest, ISpecimenContext context)
+        {
             // HashSet has no public constructor (IEnumerable<T>), so using Prelude.toHashSet function
             if (typedRequest.IsGenericType
                 && typedRequest.GetGenericTypeDefinition() == typeof(LanguageExt.HashSet<>))
@@ -57,30 +97,35 @@ namespace LanguageExt.AutoFixture
 
                 var genericMethod = method.MakeGenericMethod(genericArg);
                 var hashSet = genericMethod.Invoke(null, new object[] { listInstance });
-                return hashSet;
+                return Some(hashSet);
             }
 
-            // create either with Right state
-            if (typedRequest.IsGenericType 
-                && typedRequest.GetGenericTypeDefinition() == typeof(Either<,>))
+            return None;
+        }
+
+        private Option<object> TryCreateHashMap(Type typedRequest, ISpecimenContext context)
+        {
+            // HashSet has no public constructor (IEnumerable<T>), so using Prelude.toHashSet function
+            if (typedRequest.IsGenericType
+                && typedRequest.GetGenericTypeDefinition() == typeof(LanguageExt.HashMap<,>))
             {
-                var leftArgType = typedRequest.GetGenericArguments()[0];
-                var rightArgType = typedRequest.GetGenericArguments()[1];
+                // create list
+                var genericArgs = typedRequest.GetGenericArguments();
+                var dictionaryType = typeof(IDictionary<,>).MakeGenericType(genericArgs);
+                var dictionaryInstance = context.Resolve(dictionaryType);
 
-                var instance = context.Resolve(rightArgType);
-
-                // cast to either
-                Expression<Func<LanguageExt.Either<int, int>>> expr = () => ToEither<int,int>(1);
+                Expression<Func<LanguageExt.HashMap<int, int>>> expr = () => ToHashMap(new Dictionary<int, int>());
 
                 var methodCall = (MethodCallExpression)expr.Body;
 
                 var method = methodCall.Method.GetGenericMethodDefinition();
 
-                var genericMethod = method.MakeGenericMethod(leftArgType, rightArgType);
-                return genericMethod.Invoke(null, new object[] { instance });
+                var genericMethod = method.MakeGenericMethod(genericArgs);
+                var hashSet = genericMethod.Invoke(null, new object[] { dictionaryInstance });
+                return Some(hashSet);
             }
 
-            return new NoSpecimen();
+            return None;
         }
     }
 }
