@@ -1,11 +1,9 @@
-﻿using Ploeh.AutoFixture;
-using Ploeh.AutoFixture.Kernel;
+﻿using AutoFixture;
+using AutoFixture.Kernel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 using static LanguageExt.Prelude;
 
 namespace LanguageExt.AutoFixture
@@ -52,7 +50,7 @@ namespace LanguageExt.AutoFixture
                 .IfNone(new NoSpecimen());
         }
 
-        private Option<object> TryCreateEither(Type typedRequest, ISpecimenContext context)
+        private static Option<object> TryCreateEither(Type typedRequest, ISpecimenContext context)
         {
             // create either with Right state
             if (typedRequest.IsGenericType
@@ -77,7 +75,7 @@ namespace LanguageExt.AutoFixture
             return None;
         }
 
-        private Option<object> TryCreateHashSet(Type typedRequest, ISpecimenContext context)
+        private static Option<object> TryCreateHashSet(Type typedRequest, ISpecimenContext context)
         {
             // HashSet has no public constructor (IEnumerable<T>), so using Prelude.toHashSet function
             if (typedRequest.IsGenericType
@@ -103,7 +101,7 @@ namespace LanguageExt.AutoFixture
             return None;
         }
 
-        private Option<object> TryCreateHashMap(Type typedRequest, ISpecimenContext context)
+        private static Option<object> TryCreateHashMap(Type typedRequest, ISpecimenContext context)
         {
             // HashSet has no public constructor (IEnumerable<T>), so using Prelude.toHashSet function
             if (typedRequest.IsGenericType

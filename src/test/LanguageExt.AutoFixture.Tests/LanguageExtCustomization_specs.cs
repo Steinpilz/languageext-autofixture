@@ -1,6 +1,5 @@
-﻿using Ploeh.AutoFixture;
+﻿using AutoFixture;
 using Shouldly;
-using System;
 using Xunit;
 
 namespace LanguageExt.AutoFixture.Tests

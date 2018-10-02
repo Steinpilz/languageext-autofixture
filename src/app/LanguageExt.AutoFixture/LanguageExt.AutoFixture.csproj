@@ -1,12 +1,11 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-  <Import Project="..\..\common.props" />
+  <Import Project="../../common.props" />
   <PropertyGroup>
-    <TargetFramework>net451</TargetFramework>
+    <TargetFramework>netstandard2.0</TargetFramework>
     <Description>Customize IFixture instance to support instantiating LanguageExt's data types</Description>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="AutoFixture" Version="3.50.2" />
-    <PackageReference Include="LanguageExt.Core" Version="2.0.60" />
+    <PackageReference Include="AutoFixture" Version="4.5.0" />
+    <PackageReference Include="LanguageExt.Core" Version="3.0.28" />
   </ItemGroup>
-
 </Project>

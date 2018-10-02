@@ -1,6 +1,6 @@
 // include Fake lib
-#r @"..\packages\FAKE\tools\FakeLib.dll"
-#r @"..\packages\Steinpilz.DevFlow.Fake\tools\Steinpilz.DevFlow.Fake.Lib.dll"
+#r @"../packages/FAKE/tools/FakeLib.dll"
+#r @"../packages/Steinpilz.DevFlow.Fake/tools/Steinpilz.DevFlow.Fake.Lib.dll"
 
 open Fake
 open Steinpilz.DevFlow.Fake 
@@ -8,6 +8,7 @@ open Steinpilz.DevFlow.Fake
 let libParams = Lib.setup <| fun p -> 
     { p with 
         PublishProjects = !!"src/app/**/*.csproj"
+        UseDotNetCliToTest = true
         UseDotNetCliToPack = true
         NuGetFeed = 
             { p.NuGetFeed with 
